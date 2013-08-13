@@ -1,0 +1,33 @@
+extends layout
+
+block append script
+  script
+    $('document').ready(function () {
+      function sortUL(selector) {
+          $(selector).children("#item").sort(function(a, b) {
+              var upA = $(a).text().toUpperCase();
+              var upB = $(b).text().toUpperCase();
+              return (upA < upB) ? -1 : (upA > upB) ? 1 : 0;
+          }).appendTo(selector);
+      }
+      sortUL("#sortable");
+    });
+
+block content  
+  div
+    h4 Search Results
+    p
+
+block results
+  if results.length > 0
+    div#sortable
+      -for result in results
+        p#item
+          b=result.brandname + " " + result.productname 
+          <br />
+          i=result.ingredients
+          p
+  else
+    p Sorry, no results found.
+    br
+    a.btn.btn-success(href='/search') New Search

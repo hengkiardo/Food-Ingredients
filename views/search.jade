@@ -1,0 +1,46 @@
+extends layout
+
+block append script
+  script
+    $(function (){ 
+      $("#brandname").popover({placement:'left'});
+      $("#productname").popover({placement:'left'});
+      $("#ingredient").popover({placement:'left'});
+      $("#notIngredient").popover({placement:'left'});
+    });           
+    function validateFormInput() { 
+      var brandname = $('#brandname').val(),
+          productname = $('#productname').val(),
+          ingredient = $('#ingredient').val(),
+          result;
+      if ((brandname === '') && (productname === '') && (ingredient === '')) {
+        $('#msg').addClass('alert').text('Please enter search criteria.');
+        result = false;
+      } else if ((brandname === '') && (productname === '') && (ingredient !== '')){
+        $('#msg').addClass('alert').text('Please add brand or product criteria in addition to ingredient.');
+        result = false;
+      }
+      return result;
+    };
+      
+block content
+  div#msg
+  div.row.span3.offset2.center
+    h4 Search Product Ingredients
+    p
+      form(id='searchForm', method='post',action='/search_results', onSubmit='return validateFormInput()') 
+        label Brand
+        input(type='text', name='brandname', id='brandname', rel="popover", data-content="Input the brand name here.  Example: Progresso", data-original-title="Brand Name", data-trigger="hover")
+
+        label Product
+        input(type='text', name='productname', id='productname', rel="popover", data-content="Input the product name here.  Example: tomato soup", data-original-title="Product Name", data-trigger="hover")
+        label Ingredient
+        input(type='text', name='ingredient', id='ingredient', rel="popover", data-content="To search based on multiple ingredients, simply separate by commas. Example: monosodium glutamate, milk", data-original-title="Ingredients", data-trigger="hover")
+        
+        label 
+        input(type='checkbox', name='notIngredient', id='notIngredient', rel="popover", data-content="Leaving this box unchecked will return products that contain all specified ingredients. Checking this box will return products that do not contain any of the specified ingredients.", data-original-title="Contains / Does Not Contain", data-trigger="hover")
+        nbsp 
+        i Check the box to search for products that do not contain specified ingredient
+        p
+        input(type='submit', name='search', value='Search').a.btn
+  div.container.narrow

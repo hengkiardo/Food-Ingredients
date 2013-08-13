@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  div.jumbotron
+    h1 Know Your Food
+    p.lead Do you know what is in your food?  Find out now!
+    
+  hr 
+    
+  div.row-fluid.marketing
+    div.span6.pagination-centered
+      h4 Search Product Ingredients
+      p 
+        | Access our ever-growing <br />
+        | database of product ingredients.
+      a.btn.btn-large.btn-success(href='/search') Search
+
+    div.span6.pagination-centered
+      h4 Contribute Ingredient Information
+      p 
+        | Help us out! <br />
+        | We value your contributions.
+      a.btn.btn-large.btn-success(href='/contribute') Contribute

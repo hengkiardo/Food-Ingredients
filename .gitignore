@@ -1,0 +1,6 @@
+*~
+.DS_Store
+config/config.js
+config/config.json
+manifest.yml
+node_modules

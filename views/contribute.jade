@@ -1,0 +1,48 @@
+extends layout
+
+block append script
+  script
+    $(function (){ 
+      $("#brandname").popover({placement:'left'});
+      $("#productname").popover({placement:'left'});
+      $("#ingredients").popover({placement:'left'});
+    });
+    
+    var msg = !{JSON.stringify(message)};
+    $('document').ready(function () {
+      if (msg === "The product you entered already exists in the database") {
+        $('#msg').addClass('alert').text(msg);
+      } 
+      if (msg === "Your contribution has been sent.  Thank you!") {
+        $('#msg').addClass('alert').addClass('alert-success').text(msg);
+      }
+
+      $('.alert').append("<button type='button' class='close' data-dismiss='alert'>&times;</button>");
+      $('.close').click(function () {
+        $('#msg').hide();
+      });
+    });
+
+block content
+
+  div#msg
+
+  div.row.span3.offset2.center
+    h4 Contribute Product Ingredients
+    p
+      form(method='post',action='')
+        label Brand Name
+        input(id='brandname', type='text', name='brandname', required, rel="popover", data-content="Input the brand name here.  Example: Progresso", data-original-title="Brand Name", data-trigger="hover")
+
+        label Product Name
+        input(id='productname', type='text', name='productname', required, rel="popover", data-content="Input the product name here.  Example: tomato soup", data-original-title="Product Name", data-trigger="hover")
+        
+        label Ingredients
+        textarea(id='ingredients', rows='5', name='ingredients', required, rel="popover", data-content="Input the ingredients here as they are listed on the product's ingredient label.", data-original-title="Product Name", data-trigger="hover")
+        p
+        input(type='submit', name='contribute', value='Contribute').a.btn
+
+  div.container.narrow
+
+
+    
